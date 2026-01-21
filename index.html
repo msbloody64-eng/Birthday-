@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 350px;
+    }
+
+    h1 {
+      color: #ff4081;
+    }
+
+    input {
+      padding: 10px;
+      width: 90%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #ff4081;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #wish {
+      font-size: 20px;
+      margin-top: 15px;
+      color: #333;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <div class="card">
+    <h1>🎂 Birthday Wishes 🎉</h1>
+    <input type="text" id="nameInput" placeholder="Enter name">
+    <button onclick="wish()">Wish 🎁</button>
+    <p id="wish"></p>
+  </div>
+
+  <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <script>
+    function wish() {
+      const name = document.getElementById("nameInput").value;
+      const wishText = document.getElementById("wish");
+      const music = document.getElementById("music");
+
+      if (name === "") {
+        alert("Please enter a name 😊");
+        return;
+      }
+
+      wishText.innerHTML =
