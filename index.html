@@ -3,90 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <title>Happy Birthday Kumkum 🎉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
       overflow: hidden;
       text-align: center;
       color: white;
+      background: radial-gradient(circle at top, #020024, #090979, #000);
     }
 
-    h1 {
-      margin-top: 30px;
-      font-size: 2.2em;
-      animation: glow 2s infinite alternate;
+    .screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px gold; }
-      to { text-shadow: 0 0 25px white; }
-    }
-
-    .card {
-      background: white;
+    /* ---------- SCREEN 1 (Switch) ---------- */
+    #screen1 {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       color: #333;
+    }
+
+    .switch-box {
+      background: white;
+      padding: 30px;
       border-radius: 20px;
-      padding: 20px;
-      width: 90%;
-      max-width: 350px;
-      margin: 40px auto;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
-    input {
-      width: 90%;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    button {
-      margin-top: 12px;
-      padding: 10px 20px;
-      border: none;
+    .switch {
+      width: 80px;
+      height: 40px;
+      background: #ccc;
       border-radius: 20px;
-      background: #ff4f8b;
-      color: white;
-      font-size: 16px;
+      position: relative;
       cursor: pointer;
+      margin: 15px auto;
     }
 
-    .message {
-      margin-top: 15px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .teddy {
-      width: 120px;
-      margin: 10px auto;
-      display: block;
-    }
-
-    .balloon {
+    .switch::before {
+      content: "";
       position: absolute;
-      width: 60px;
-      height: 80px;
+      width: 36px;
+      height: 36px;
+      background: white;
       border-radius: 50%;
-      animation: float 6s linear infinite;
+      top: 2px;
+      left: 2px;
+      transition: 0.3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .switch.on {
+      background: #4caf50;
+    }
+
+    .switch.on::before {
+      transform: translateX(40px);
+    }
+
+    /* ---------- SCREEN 2 ---------- */
+    #screen2 {
+      display: none;
+      background: radial-gradient(circle at top, #020024, #090979, #000);
+    }
+
+    h1 {
+      margin-top: 20px;
+      text-shadow: 0 0 15px gold;
+    }
+
+    /* Shooting stars */
+    .star {
+      position: fixed;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(white, transparent);
+      animation: shoot 1.5s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes shoot {
+      from {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
+      }
+      to {
+        transform: translate(600px, 600px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    /* Balloons */
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      width: 50px;
+      height: 70px;
+      border-radius: 50%;
       cursor: pointer;
+      animation: float 7s linear infinite;
+      z-index: 2;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      width: 2px;
+      height: 18px;
+      background: #aaa;
+      transform: translateX(-50%);
     }
 
     @keyframes float {
-      from { bottom: -100px; }
-      to { bottom: 110vh; }
+      from { transform: translateY(0); }
+      to { transform: translateY(-120vh); }
     }
 
-    .firework {
+    /* Envelope */
+    .envelope {
+      width: 220px;
+      height: 140px;
+      background: #ffb6c1;
+      border-radius: 10px;
+      position: relative;
+      margin-top: 20px;
+      cursor: pointer;
+      z-index: 5;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      display: none;
+    }
+
+    .flap {
       position: absolute;
-      width: 8px;
-      height: 8px;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #ff91a4;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: 0.6s;
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .letter {
+      position: absolute;
+      inset: 15px;
+      background: white;
+      color: #333;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
+      transform: translateY(60px);
+      opacity: 0;
+      transition: 0.6s;
+      overflow-y: auto;
+    }
+
+    .envelope.open .letter {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mahadev {
+      margin-top: 5px;
+      font-weight: bold;
+      color: #ff4081;
+    }
+
+    /* Fireworks */
+    .firework {
+      position: fixed;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       animation: explode 1s ease-out forwards;
+      z-index: 3;
     }
 
     @keyframes explode {
@@ -96,63 +201,162 @@
       }
     }
 
-    audio {
+    /* Teddy */
+    .teddy {
+      position: fixed;
+      bottom: 20px;
+      left: -120px;
+      width: 100px;
+      transition: 4s linear;
+      z-index: 6;
       display: none;
     }
+
+    .teddy-text {
+      position: fixed;
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      display: none;
+      z-index: 7;
+    }
+
+    audio { display: none; }
   </style>
 </head>
 <body>
 
-<h1>🎂 Happy Birthday Kumkum 🎉</h1>
-
-<div class="card">
-  <img class="teddy" src="https://i.imgur.com/7yUvePI.png" alt="White Teddy Bear">
-  <p>Enter your name:</p>
-  <input id="nameInput" placeholder="Your name">
-  <br>
-  <button onclick="wish()">Wish 🎁</button>
-  <div class="message" id="message"></div>
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen">
+  <div class="switch-box">
+    <h2>🎁 Tap the Switch 🎁</h2>
+    <div class="switch" id="switch" onclick="turnOn()"></div>
+    <p>Turn on the celebration ✨</p>
+  </div>
 </div>
 
-<audio autoplay loop>
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+  <h1>🎂 Happy Birthday Kumkum 🎉</h1>
+  <p>🎈 Tap balloons to burst them 🎈</p>
+  <div class="envelope" id="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="letter">
+      💖 Dear Kumkum,<br><br>
+      May Mahadev bless you with endless happiness, health, success,
+      and beautiful moments 🌸✨<br><br>
+      May your life shine brighter than these stars 🌠<br><br>
+      🔱 Har Har Mahadev 🔱<br><br>
+      🌙 Good Night & Sweet Dreams ✨
+    </div>
+  </div>
+</div>
+
+<!-- Teddy -->
+<img id="teddy" class="teddy" src="https://i.imgur.com/2DhmtJ4.png" alt="Teddy Bear">
+<div id="teddyText" class="teddy-text">Good Night Kuku 🧸🌙</div>
+
+<!-- Music -->
+<audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  function wish() {
-    const name = document.getElementById("nameInput").value || "Friend";
-    document.getElementById("message").innerHTML =
-      `✨ Dear ${name}, Mahadev bless you with happiness, health & success! 🔱🎉`;
-    fireworks();
+  /* ---------- SWITCH ---------- */
+  function turnOn() {
+    document.getElementById("switch").classList.add("on");
+    setTimeout(() => {
+      document.getElementById("screen1").style.display = "none";
+      document.getElementById("screen2").style.display = "flex";
+      document.getElementById("music").play();
+      startStars();
+      startBalloons();
+    }, 400);
   }
 
-  function createBalloon() {
-    const balloon = document.createElement("div");
-    balloon.className = "balloon";
-    balloon.style.left = Math.random() * 90 + "vw";
-    balloon.style.background = `hsl(${Math.random()*360},100%,70%)`;
-    balloon.onclick = () => {
-      balloon.remove();
-      fireworks();
-    };
-    document.body.appendChild(balloon);
-    setTimeout(() => balloon.remove(), 6000);
+  /* ---------- SHOOTING STARS ---------- */
+  function startStars() {
+    setInterval(() => {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.top = Math.random() * 40 + "vh";
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    }, 700);
   }
 
-  setInterval(createBalloon, 800);
+  /* ---------- BALLOONS ---------- */
+  let burstCount = 0;
 
-  function fireworks() {
-    for (let i = 0; i < 20; i++) {
+  function startBalloons() {
+    setInterval(() => {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.left = Math.random() * 90 + "vw";
+      balloon.style.background =
+        ["#ff4081", "#ffeb3b", "#4caf50", "#2196f3", "#9c27b0"]
+        [Math.floor(Math.random() * 5)];
+      balloon.onclick = () => {
+        balloon.remove();
+        burstFirework(
+          balloon.getBoundingClientRect().left + 25,
+          balloon.getBoundingClientRect().top + 25
+        );
+        burstCount++;
+        if (burstCount === 5) {
+          document.getElementById("envelope").style.display = "block";
+        }
+      };
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 9000);
+    }, 800);
+  }
+
+  /* ---------- FIREWORKS ---------- */
+  function burstFirework(x, y) {
+    for (let i = 0; i < 25; i++) {
       const fw = document.createElement("div");
       fw.className = "firework";
-      fw.style.left = Math.random() * 100 + "vw";
-      fw.style.top = Math.random() * 100 + "vh";
+      fw.style.left = x + "px";
+      fw.style.top = y + "px";
       fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
       fw.style.setProperty("--x", (Math.random()*200-100)+"px");
       fw.style.setProperty("--y", (Math.random()*200-100)+"px");
       document.body.appendChild(fw);
       setTimeout(() => fw.remove(), 1000);
     }
+  }
+
+  /* ---------- ENVELOPE ---------- */
+  function openEnvelope() {
+    document.getElementById("envelope").classList.add("open");
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        burstFirework(innerWidth/2, innerHeight/2);
+      }, i * 400);
+    }
+
+    // Show teddy after envelope opens
+    setTimeout(showTeddy, 1200);
+  }
+
+  /* ---------- TEDDY ---------- */
+  function showTeddy() {
+    const teddy = document.getElementById("teddy");
+    const teddyText = document.getElementById("teddyText");
+    teddy.style.display = "block";
+    teddy.style.left = "50%";
+    teddy.style.transform = "translateX(-50%)";
+
+    setTimeout(() => {
+      teddyText.style.display = "block";
+    }, 4000);
   }
 </script>
 
