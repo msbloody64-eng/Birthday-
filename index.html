@@ -3,180 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <title>Happy Birthday Kumkum 🎉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: radial-gradient(circle at bottom, #020024, #090979, #ff4081);
+      background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
       overflow: hidden;
       text-align: center;
       color: white;
     }
 
-    .card {
-      background: rgba(255,255,255,0.95);
-      color: #333;
-      padding: 22px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      width: 90%;
-      max-width: 360px;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-    }
-
     h1 {
-      color: #ff4081;
-      margin-bottom: 5px;
+      margin-top: 30px;
+      font-size: 2.2em;
+      animation: glow 2s infinite alternate;
     }
 
-    p {
+    @keyframes glow {
+      from { text-shadow: 0 0 10px gold; }
+      to { text-shadow: 0 0 25px white; }
+    }
+
+    .card {
+      background: white;
+      color: #333;
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 350px;
+      margin: 40px auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
       font-size: 16px;
-      margin: 8px 0;
     }
 
-    img {
-      width: 150px;
-      border-radius: 15px;
-      margin-top: 10px;
-    }
-
-    .note {
-      font-size: 14px;
-      color: #666;
-    }
-
-    /* Balloons */
-    .balloon {
-      position: fixed;
-      bottom: -80px;
-      width: 45px;
-      height: 60px;
-      border-radius: 50%;
+    button {
+      margin-top: 12px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4f8b;
+      color: white;
+      font-size: 16px;
       cursor: pointer;
-      animation: float 7s linear infinite;
-      z-index: 2;
     }
 
-    .balloon::after {
-      content: "";
+    .message {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .teddy {
+      width: 120px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    .balloon {
       position: absolute;
-      bottom: -18px;
-      left: 50%;
-      width: 2px;
-      height: 18px;
-      background: #555;
-      transform: translateX(-50%);
+      width: 60px;
+      height: 80px;
+      border-radius: 50%;
+      animation: float 6s linear infinite;
+      cursor: pointer;
     }
 
     @keyframes float {
-      from { transform: translateY(0); }
-      to { transform: translateY(-120vh); }
+      from { bottom: -100px; }
+      to { bottom: 110vh; }
     }
 
-    /* Fireworks */
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 1;
+    .firework {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      to {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Birthday Music -->
-  <audio id="music" autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-  </audio>
+<h1>🎂 Happy Birthday Kumkum 🎉</h1>
 
-  <canvas id="fireworks"></canvas>
+<div class="card">
+  <img class="teddy" src="https://i.imgur.com/7yUvePI.png" alt="White Teddy Bear">
+  <p>Enter your name:</p>
+  <input id="nameInput" placeholder="Your name">
+  <br>
+  <button onclick="wish()">Wish 🎁</button>
+  <div class="message" id="message"></div>
+</div>
 
-  <div class="card">
-    <h1>🎂 Happy Birthday Kumkum 🎉</h1>
-    <p>May your life be filled with smiles, love, and success 💖</p>
-    <img src="https://i.imgur.com/7kY3J6F.png" alt="White Teddy Bear" />
-    <p class="note">🧸 Tap balloons to burst them 🎈💥</p>
-    <p><b>🙏 Mahadev Bless You Always 🙏</b></p>
-  </div>
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
 
-  <script>
-    /* ---------- BALLOON GAME ---------- */
-    function createBalloon() {
-      const balloon = document.createElement("div");
-      balloon.className = "balloon";
-      balloon.style.left = Math.random() * 100 + "vw";
-      balloon.style.backgroundColor =
-        ["#ff4081", "#ffeb3b", "#4caf50", "#2196f3", "#9c27b0"]
-        [Math.floor(Math.random() * 5)];
-      balloon.style.animationDuration = 5 + Math.random() * 4 + "s";
+<script>
+  function wish() {
+    const name = document.getElementById("nameInput").value || "Friend";
+    document.getElementById("message").innerHTML =
+      `✨ Dear ${name}, Mahadev bless you with happiness, health & success! 🔱🎉`;
+    fireworks();
+  }
 
-      balloon.onclick = () => {
-        balloon.remove();
-        burstFirework(balloon.getBoundingClientRect().left + 20,
-                      balloon.getBoundingClientRect().top + 20);
-      };
-
-      document.body.appendChild(balloon);
-      setTimeout(() => balloon.remove(), 9000);
-    }
-
-    setInterval(createBalloon, 700);
-
-    /* ---------- FIREWORKS ---------- */
-    const canvas = document.getElementById("fireworks");
-    const ctx = canvas.getContext("2d");
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-
-    window.onresize = () => {
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
+  function createBalloon() {
+    const balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.style.left = Math.random() * 90 + "vw";
+    balloon.style.background = `hsl(${Math.random()*360},100%,70%)`;
+    balloon.onclick = () => {
+      balloon.remove();
+      fireworks();
     };
+    document.body.appendChild(balloon);
+    setTimeout(() => balloon.remove(), 6000);
+  }
 
-    let particles = [];
+  setInterval(createBalloon, 800);
 
-    function burstFirework(x, y) {
-      for (let i = 0; i < 30; i++) {
-        particles.push({
-          x,
-          y,
-          vx: Math.cos((Math.PI * 2 * i) / 30) * (Math.random() * 3 + 2),
-          vy: Math.sin((Math.PI * 2 * i) / 30) * (Math.random() * 3 + 2),
-          life: 60,
-          color: `hsl(${Math.random() * 360},100%,60%)`
-        });
-      }
+  function fireworks() {
+    for (let i = 0; i < 20; i++) {
+      const fw = document.createElement("div");
+      fw.className = "firework";
+      fw.style.left = Math.random() * 100 + "vw";
+      fw.style.top = Math.random() * 100 + "vh";
+      fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
+      fw.style.setProperty("--x", (Math.random()*200-100)+"px");
+      fw.style.setProperty("--y", (Math.random()*200-100)+"px");
+      document.body.appendChild(fw);
+      setTimeout(() => fw.remove(), 1000);
     }
-
-    // Auto fireworks every 2.5s
-    setInterval(() => {
-      burstFirework(Math.random() * canvas.width,
-                    Math.random() * canvas.height / 2);
-    }, 2500);
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p, i) => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.05;
-        p.life--;
-        if (p.life <= 0) particles.splice(i, 1);
-      });
-      requestAnimationFrame(animate);
-    }
-    animate();
-  </script>
+  }
+</script>
 
 </body>
-</html>      
+</html>
