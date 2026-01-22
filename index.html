@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
 body{
-  background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover no-repeat fixed;
+  background:url("https://i.imgur.com/8K7h6Pb.jpg") center/cover no-repeat fixed;
   height:100vh;
   overflow:hidden;
   color:white;
@@ -20,9 +20,16 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  backdrop-filter:blur(3px);
+  backdrop-filter:blur(2px);
 }
 .active{display:flex}
+.topText{
+  position:absolute;
+  top:20px;
+  width:100%;
+  font-size:22px;
+  font-weight:bold;
+}
 button{
   padding:12px 25px;
   border:none;
@@ -42,19 +49,15 @@ button{
 @keyframes float{
   to{transform:translateY(-120vh)}
 }
-#bear{
+#bear,#bear2,#bear3{
   width:50px;
-  position:absolute;
-  bottom:20px;
-  left:20px;
-  transition:.3s;
 }
 .envelope{
-  width:160px;
-  height:110px;
-  background:#fff;
+  width:170px;
+  height:120px;
+  background:white;
   border-radius:10px;
-  position:relative;
+  margin-top:20px;
 }
 .wishBox{
   width:90%;
@@ -84,46 +87,48 @@ button{
 <body>
 
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/05/23/audio_4bde3a1f1f.mp3?filename=romantic-piano-146246.mp3">
+  <source src="https://cdn.pixabay.com/download/audio/2023/02/16/audio_3b07c2e6a2.mp3?filename=love-romantic-144230.mp3">
 </audio>
 
 <!-- SCREEN 1 -->
 <div class="screen active" id="s1">
-  <h1>For Kumkum 💖</h1>
-  <p>Turn the switch</p>
+  <div class="topText">For Kumkum 💖</div>
+  <h2>Turn the switch</h2>
   <button onclick="go2()">ON</button>
 </div>
 
 <!-- SCREEN 2 BALLOONS -->
-<div class="screen" id="s2"></div>
+<div class="screen" id="s2">
+  <div class="topText">Burst all balloons 🎈</div>
+</div>
 
 <!-- SCREEN 3 BEAR -->
 <div class="screen" id="s3">
+  <div class="topText">Tap teddy three times 🧸</div>
   <img src="https://i.imgur.com/zr9F6RU.png" id="bear">
-  <h2>Tap three times 🧸</h2>
 </div>
 
 <!-- SCREEN 4 ENVELOPE -->
 <div class="screen" id="s4">
-  <h2>Drag teddy to envelope 💌</h2>
+  <div class="topText">Tap envelope 💌</div>
   <div class="envelope" id="env"></div>
-  <img src="https://i.imgur.com/zr9F6RU.png" id="bear2">
 </div>
 
 <!-- SCREEN 5 WISHES -->
 <div class="screen" id="s5">
+  <div class="topText">Scroll wishes 💖</div>
   <div class="wishBox" id="wishBox"></div>
 </div>
 
 <!-- SCREEN 6 GIFT -->
 <div class="screen" id="s6">
-  <h2>Tap the gift 🎁</h2>
+  <div class="topText">Tap the gift 🎁</div>
   <div class="gift" id="gift"></div>
 </div>
 
 <!-- SCREEN 7 FINAL -->
 <div class="screen" id="s7">
-  <img src="https://i.imgur.com/zr9F6RU.png" width="80">
+  <img src="https://i.imgur.com/zr9F6RU.png" id="bear3">
   <h2>Welcome 💖</h2>
   <h3>Good Night Kuku 🌙✨</h3>
 </div>
@@ -153,33 +158,22 @@ function checkBalloon(){
 }
 
 let taps=0;
-document.getElementById("s3").onclick=()=>{
+document.getElementById("bear").onclick=()=>{
   taps++;
   if(taps>=3)show("s4");
 };
 
-let bear2=document.getElementById("bear2");
-let env=document.getElementById("env");
-bear2.onmousedown=function(e){
-  document.onmousemove=function(e){
-    bear2.style.left=e.clientX-30+"px";
-    bear2.style.top=e.clientY-30+"px";
-    if(env.getBoundingClientRect().left<e.clientX &&
-       env.getBoundingClientRect().right>e.clientX){
-       showWishes();
-    }
-  }
-}
-document.onmouseup=()=>document.onmousemove=null;
+document.getElementById("env").onclick=()=>{
+  showWishes();
+};
 
 function showWishes(){
   show("s5");
   let wishes=[
     "Happy Birthday Kumkum 🎂💖",
-    "You are the most beautiful soul 🌸",
-    "May your life shine brighter every day ✨",
-    "Always keep smiling 😊",
-    "Stay happy, stay blessed 💕",
+    "You are my favorite miracle 🌸",
+    "Your smile makes my world bright ✨",
+    "Stay happy always 😊",
     "Mahadev always protect you 🕉️🙏"
   ];
   let box=document.getElementById("wishBox");
@@ -187,14 +181,15 @@ function showWishes(){
   wishes.forEach(w=>{
     let p=document.createElement("p");
     p.style.margin="20px";
+    p.style.fontSize="20px";
     p.innerText=w;
     box.appendChild(p);
   });
-  setTimeout(()=>show("s6"),8000);
+  setTimeout(()=>show("s6"),9000);
 }
 
 document.getElementById("gift").onclick=function(){
-  for(let i=0;i<12;i++){
+  for(let i=0;i<15;i++){
     let c=document.createElement("div");
     c.className="choco";
     c.style.left=Math.random()*80+"px";
