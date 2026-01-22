@@ -1,1 +1,207 @@
-<!#
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Kumkum 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{
+  background:url("https://raw.githubusercontent.com/msbloody64-eng/Birthday-/main/images%20(1).jpeg") center/cover no-repeat fixed;
+  height:100vh;
+  overflow:hidden;
+  color:white;
+}
+.screen{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  backdrop-filter:blur(3px);
+}
+.active{display:flex}
+button{
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  background:#ff5fa2;
+  color:white;
+}
+.balloon{
+  width:70px;
+  height:90px;
+  border-radius:50%;
+  position:absolute;
+  bottom:-100px;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  to{transform:translateY(-120vh)}
+}
+#bear,#bear2{
+  width:55px;
+  position:absolute;
+  bottom:20px;
+  left:20px;
+}
+.envelope{
+  width:170px;
+  height:110px;
+  background:#fff;
+  border-radius:10px;
+}
+.wishBox{
+  width:90%;
+  max-height:75%;
+  overflow-y:auto;
+  background:rgba(0,0,0,.6);
+  padding:20px;
+  border-radius:20px;
+}
+.gift{
+  width:120px;
+  height:120px;
+  background:red;
+  border-radius:12px;
+  position:relative;
+}
+.choco{
+  width:30px;
+  height:30px;
+  background:brown;
+  border-radius:6px;
+  position:absolute;
+  animation:pop 1s ease-out forwards;
+}
+@keyframes pop{
+  from{transform:scale(0)}
+  to{transform:scale(1.2)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/main/Indila_-_Love_Story__ms.mp3">
+</audio>
+
+<!-- SCREEN 1 -->
+<div class="screen active" id="s1">
+  <h1>For Kumkum 💖</h1>
+  <p>Turn the switch</p>
+  <button onclick="go2()">ON</button>
+</div>
+
+<!-- SCREEN 2 BALLOONS -->
+<div class="screen" id="s2"></div>
+
+<!-- SCREEN 3 BEAR -->
+<div class="screen" id="s3">
+  <img src="https://i.imgur.com/zr9F6RU.png" id="bear">
+  <h2>Tap teddy three times 🧸</h2>
+</div>
+
+<!-- SCREEN 4 ENVELOPE -->
+<div class="screen" id="s4">
+  <h2>Tap envelope three times 💌</h2>
+  <div class="envelope" id="env"></div>
+</div>
+
+<!-- SCREEN 5 WISHES -->
+<div class="screen" id="s5">
+  <div class="wishBox" id="wishBox"></div>
+</div>
+
+<!-- SCREEN 6 GIFT -->
+<div class="screen" id="s6">
+  <h2>Tap the gift 🎁</h2>
+  <div class="gift" id="gift"></div>
+</div>
+
+<!-- SCREEN 7 FINAL -->
+<div class="screen" id="s7">
+  <img src="https://i.imgur.com/zr9F6RU.png" width="80">
+  <h2>Welcome 💖</h2>
+  <h3>Good Night Kuku 🌙✨</h3>
+</div>
+
+<script>
+let music=document.getElementById("music");
+
+function go2(){
+  music.play();
+  show("s2");
+  for(let i=0;i<12;i++)makeBalloon();
+}
+
+function makeBalloon(){
+  let b=document.createElement("div");
+  b.className="balloon";
+  b.style.left=Math.random()*90+"%";
+  b.style.background=["red","pink","hotpink"][Math.floor(Math.random()*3)];
+  b.onclick=()=>{b.remove();checkBalloon()};
+  document.getElementById("s2").appendChild(b);
+}
+
+function checkBalloon(){
+  if(document.querySelectorAll(".balloon").length===0){
+    show("s3");
+  }
+}
+
+let taps=0;
+document.getElementById("s3").onclick=()=>{
+  taps++;
+  if(taps>=3)show("s4");
+};
+
+let envTaps=0;
+document.getElementById("env").onclick=()=>{
+  envTaps++;
+  if(envTaps>=3)showWishes();
+};
+
+function showWishes(){
+  show("s5");
+  let wishes=[
+    "Happy Birthday Kumkum 🎂💖",
+    "You are my sunshine 🌸",
+    "May your life glow with happiness ✨",
+    "Stay smiling always 😊",
+    "I’m lucky to have you 💕",
+    "Mahadev always bless you 🕉️🙏"
+  ];
+  let box=document.getElementById("wishBox");
+  box.innerHTML="";
+  wishes.forEach(w=>{
+    let p=document.createElement("p");
+    p.style.margin="20px";
+    p.innerText=w;
+    box.appendChild(p);
+  });
+  setTimeout(()=>show("s6"),9000);
+}
+
+document.getElementById("gift").onclick=function(){
+  for(let i=0;i<14;i++){
+    let c=document.createElement("div");
+    c.className="choco";
+    c.style.left=Math.random()*80+"px";
+    c.style.top=Math.random()*80+"px";
+    this.appendChild(c);
+  }
+  setTimeout(()=>show("s7"),2500);
+};
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+</script>
+
+</body>
+</html>
