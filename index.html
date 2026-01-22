@@ -1,363 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy Birthday Kumkum 🎉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-      text-align: center;
-      color: white;
-      background: radial-gradient(circle at top, #020024, #090979, #000);
-    }
-
-    .screen {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    /* ---------- SCREEN 1 (Switch) ---------- */
-    #screen1 {
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      color: #333;
-    }
-
-    .switch-box {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    .switch {
-      width: 80px;
-      height: 40px;
-      background: #ccc;
-      border-radius: 20px;
-      position: relative;
-      cursor: pointer;
-      margin: 15px auto;
-    }
-
-    .switch::before {
-      content: "";
-      position: absolute;
-      width: 36px;
-      height: 36px;
-      background: white;
-      border-radius: 50%;
-      top: 2px;
-      left: 2px;
-      transition: 0.3s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
-
-    .switch.on {
-      background: #4caf50;
-    }
-
-    .switch.on::before {
-      transform: translateX(40px);
-    }
-
-    /* ---------- SCREEN 2 ---------- */
-    #screen2 {
-      display: none;
-      background: radial-gradient(circle at top, #020024, #090979, #000);
-    }
-
-    h1 {
-      margin-top: 20px;
-      text-shadow: 0 0 15px gold;
-    }
-
-    /* Shooting stars */
-    .star {
-      position: fixed;
-      width: 2px;
-      height: 80px;
-      background: linear-gradient(white, transparent);
-      animation: shoot 1.5s linear infinite;
-      opacity: 0.8;
-      z-index: 1;
-    }
-
-    @keyframes shoot {
-      from {
-        transform: translate(0, 0) rotate(45deg);
-        opacity: 1;
-      }
-      to {
-        transform: translate(600px, 600px) rotate(45deg);
-        opacity: 0;
-      }
-    }
-
-    /* Balloons */
-    .balloon {
-      position: fixed;
-      bottom: -100px;
-      width: 50px;
-      height: 70px;
-      border-radius: 50%;
-      cursor: pointer;
-      animation: float 7s linear infinite;
-      z-index: 2;
-    }
-
-    .balloon::after {
-      content: "";
-      position: absolute;
-      bottom: -18px;
-      left: 50%;
-      width: 2px;
-      height: 18px;
-      background: #aaa;
-      transform: translateX(-50%);
-    }
-
-    @keyframes float {
-      from { transform: translateY(0); }
-      to { transform: translateY(-120vh); }
-    }
-
-    /* Envelope */
-    .envelope {
-      width: 220px;
-      height: 140px;
-      background: #ffb6c1;
-      border-radius: 10px;
-      position: relative;
-      margin-top: 20px;
-      cursor: pointer;
-      z-index: 5;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-      display: none;
-    }
-
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: #ff91a4;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform-origin: top;
-      transition: 0.6s;
-    }
-
-    .envelope.open .flap {
-      transform: rotateX(180deg);
-    }
-
-    .letter {
-      position: absolute;
-      inset: 15px;
-      background: white;
-      color: #333;
-      border-radius: 8px;
-      padding: 10px;
-      font-size: 14px;
-      transform: translateY(60px);
-      opacity: 0;
-      transition: 0.6s;
-      overflow-y: auto;
-    }
-
-    .envelope.open .letter {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .mahadev {
-      margin-top: 5px;
-      font-weight: bold;
-      color: #ff4081;
-    }
-
-    /* Fireworks */
-    .firework {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      animation: explode 1s ease-out forwards;
-      z-index: 3;
-    }
-
-    @keyframes explode {
-      to {
-        transform: translate(var(--x), var(--y));
-        opacity: 0;
-      }
-    }
-
-    /* Teddy */
-    .teddy {
-      position: fixed;
-      bottom: 20px;
-      left: -120px;
-      width: 100px;
-      transition: 4s linear;
-      z-index: 6;
-      display: none;
-    }
-
-    .teddy-text {
-      position: fixed;
-      bottom: 130px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
-      color: #333;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 14px;
-      display: none;
-      z-index: 7;
-    }
-
-    audio { display: none; }
-  </style>
+<meta charset="UTF-8">
+<title>For Kumkum 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{
+  background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover no-repeat fixed;
+  height:100vh;
+  overflow:hidden;
+  color:white;
+  text-align:center;
+}
+.screen{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  backdrop-filter:blur(3px);
+}
+.active{display:flex}
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:20px;
+  font-size:18px;
+  background:#ff5fa2;
+  color:white;
+}
+.balloon{
+  width:70px;
+  height:90px;
+  border-radius:50%;
+  position:absolute;
+  bottom:-100px;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  to{transform:translateY(-120vh)}
+}
+#bear{
+  width:50px;
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  transition:.3s;
+}
+.envelope{
+  width:160px;
+  height:110px;
+  background:#fff;
+  border-radius:10px;
+  position:relative;
+}
+.wishBox{
+  width:90%;
+  max-height:70%;
+  overflow-y:auto;
+  background:rgba(0,0,0,.6);
+  padding:20px;
+  border-radius:15px;
+}
+.gift{
+  width:120px;
+  height:120px;
+  background:red;
+  border-radius:10px;
+  position:relative;
+}
+.choco{
+  width:30px;
+  height:30px;
+  background:brown;
+  border-radius:6px;
+  position:absolute;
+}
+</style>
 </head>
+
 <body>
 
-<!-- SCREEN 1 -->
-<div id="screen1" class="screen">
-  <div class="switch-box">
-    <h2>🎁 Tap the Switch 🎁</h2>
-    <div class="switch" id="switch" onclick="turnOn()"></div>
-    <p>Turn on the celebration ✨</p>
-  </div>
-</div>
-
-<!-- SCREEN 2 -->
-<div id="screen2" class="screen">
-  <h1>🎂 Happy Birthday Kumkum 🎉</h1>
-  <p>🎈 Tap balloons to burst them 🎈</p>
-  <div class="envelope" id="envelope" onclick="openEnvelope()">
-    <div class="flap"></div>
-    <div class="letter">
-      💖 Dear Kumkum,<br><br>
-      May Mahadev bless you with endless happiness, health, success,
-      and beautiful moments 🌸✨<br><br>
-      May your life shine brighter than these stars 🌠<br><br>
-      🔱 Har Har Mahadev 🔱<br><br>
-      🌙 Good Night & Sweet Dreams ✨
-    </div>
-  </div>
-</div>
-
-<!-- Teddy -->
-<img id="teddy" class="teddy" src="https://i.imgur.com/2DhmtJ4.png" alt="Teddy Bear">
-<div id="teddyText" class="teddy-text">Good Night Kuku 🧸🌙</div>
-
-<!-- Music -->
 <audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2023/05/23/audio_4bde3a1f1f.mp3?filename=romantic-piano-146246.mp3">
 </audio>
 
+<!-- SCREEN 1 -->
+<div class="screen active" id="s1">
+  <h1>For Kumkum 💖</h1>
+  <p>Turn the switch</p>
+  <button onclick="go2()">ON</button>
+</div>
+
+<!-- SCREEN 2 BALLOONS -->
+<div class="screen" id="s2"></div>
+
+<!-- SCREEN 3 BEAR -->
+<div class="screen" id="s3">
+  <img src="https://i.imgur.com/zr9F6RU.png" id="bear">
+  <h2>Tap three times 🧸</h2>
+</div>
+
+<!-- SCREEN 4 ENVELOPE -->
+<div class="screen" id="s4">
+  <h2>Drag teddy to envelope 💌</h2>
+  <div class="envelope" id="env"></div>
+  <img src="https://i.imgur.com/zr9F6RU.png" id="bear2">
+</div>
+
+<!-- SCREEN 5 WISHES -->
+<div class="screen" id="s5">
+  <div class="wishBox" id="wishBox"></div>
+</div>
+
+<!-- SCREEN 6 GIFT -->
+<div class="screen" id="s6">
+  <h2>Tap the gift 🎁</h2>
+  <div class="gift" id="gift"></div>
+</div>
+
+<!-- SCREEN 7 FINAL -->
+<div class="screen" id="s7">
+  <img src="https://i.imgur.com/zr9F6RU.png" width="80">
+  <h2>Welcome 💖</h2>
+  <h3>Good Night Kuku 🌙✨</h3>
+</div>
+
 <script>
-  /* ---------- SWITCH ---------- */
-  function turnOn() {
-    document.getElementById("switch").classList.add("on");
-    setTimeout(() => {
-      document.getElementById("screen1").style.display = "none";
-      document.getElementById("screen2").style.display = "flex";
-      document.getElementById("music").play();
-      startStars();
-      startBalloons();
-    }, 400);
+let music=document.getElementById("music");
+
+function go2(){
+  music.play();
+  show("s2");
+  for(let i=0;i<12;i++)makeBalloon();
+}
+
+function makeBalloon(){
+  let b=document.createElement("div");
+  b.className="balloon";
+  b.style.left=Math.random()*90+"%";
+  b.style.background=["red","pink","hotpink"][Math.floor(Math.random()*3)];
+  b.onclick=()=>{b.remove();checkBalloon()};
+  document.getElementById("s2").appendChild(b);
+}
+
+function checkBalloon(){
+  if(document.querySelectorAll(".balloon").length===0){
+    show("s3");
   }
+}
 
-  /* ---------- SHOOTING STARS ---------- */
-  function startStars() {
-    setInterval(() => {
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.left = Math.random() * 100 + "vw";
-      star.style.top = Math.random() * 40 + "vh";
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 1500);
-    }, 700);
-  }
+let taps=0;
+document.getElementById("s3").onclick=()=>{
+  taps++;
+  if(taps>=3)show("s4");
+};
 
-  /* ---------- BALLOONS ---------- */
-  let burstCount = 0;
-
-  function startBalloons() {
-    setInterval(() => {
-      const balloon = document.createElement("div");
-      balloon.className = "balloon";
-      balloon.style.left = Math.random() * 90 + "vw";
-      balloon.style.background =
-        ["#ff4081", "#ffeb3b", "#4caf50", "#2196f3", "#9c27b0"]
-        [Math.floor(Math.random() * 5)];
-      balloon.onclick = () => {
-        balloon.remove();
-        burstFirework(
-          balloon.getBoundingClientRect().left + 25,
-          balloon.getBoundingClientRect().top + 25
-        );
-        burstCount++;
-        if (burstCount === 5) {
-          document.getElementById("envelope").style.display = "block";
-        }
-      };
-      document.body.appendChild(balloon);
-      setTimeout(() => balloon.remove(), 9000);
-    }, 800);
-  }
-
-  /* ---------- FIREWORKS ---------- */
-  function burstFirework(x, y) {
-    for (let i = 0; i < 25; i++) {
-      const fw = document.createElement("div");
-      fw.className = "firework";
-      fw.style.left = x + "px";
-      fw.style.top = y + "px";
-      fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
-      fw.style.setProperty("--x", (Math.random()*200-100)+"px");
-      fw.style.setProperty("--y", (Math.random()*200-100)+"px");
-      document.body.appendChild(fw);
-      setTimeout(() => fw.remove(), 1000);
+let bear2=document.getElementById("bear2");
+let env=document.getElementById("env");
+bear2.onmousedown=function(e){
+  document.onmousemove=function(e){
+    bear2.style.left=e.clientX-30+"px";
+    bear2.style.top=e.clientY-30+"px";
+    if(env.getBoundingClientRect().left<e.clientX &&
+       env.getBoundingClientRect().right>e.clientX){
+       showWishes();
     }
   }
+}
+document.onmouseup=()=>document.onmousemove=null;
 
-  /* ---------- ENVELOPE ---------- */
-  function openEnvelope() {
-    document.getElementById("envelope").classList.add("open");
-    for (let i = 0; i < 3; i++) {
-      setTimeout(() => {
-        burstFirework(innerWidth/2, innerHeight/2);
-      }, i * 400);
-    }
+function showWishes(){
+  show("s5");
+  let wishes=[
+    "Happy Birthday Kumkum 🎂💖",
+    "You are the most beautiful soul 🌸",
+    "May your life shine brighter every day ✨",
+    "Always keep smiling 😊",
+    "Stay happy, stay blessed 💕",
+    "Mahadev always protect you 🕉️🙏"
+  ];
+  let box=document.getElementById("wishBox");
+  box.innerHTML="";
+  wishes.forEach(w=>{
+    let p=document.createElement("p");
+    p.style.margin="20px";
+    p.innerText=w;
+    box.appendChild(p);
+  });
+  setTimeout(()=>show("s6"),8000);
+}
 
-    // Show teddy after envelope opens
-    setTimeout(showTeddy, 1200);
+document.getElementById("gift").onclick=function(){
+  for(let i=0;i<12;i++){
+    let c=document.createElement("div");
+    c.className="choco";
+    c.style.left=Math.random()*80+"px";
+    c.style.top=Math.random()*80+"px";
+    this.appendChild(c);
   }
+  setTimeout(()=>show("s7"),2500);
+};
 
-  /* ---------- TEDDY ---------- */
-  function showTeddy() {
-    const teddy = document.getElementById("teddy");
-    const teddyText = document.getElementById("teddyText");
-    teddy.style.display = "block";
-    teddy.style.left = "50%";
-    teddy.style.transform = "translateX(-50%)";
-
-    setTimeout(() => {
-      teddyText.style.display = "block";
-    }, 4000);
-  }
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 </script>
 
 </body>
