@@ -25,10 +25,11 @@ body{
 .active{display:flex}
 .topText{
   position:absolute;
-  top:20px;
+  top:15px;
   width:100%;
   font-size:22px;
   font-weight:bold;
+  text-shadow:0 0 10px black;
 }
 button{
   padding:12px 25px;
@@ -80,6 +81,29 @@ button{
   background:brown;
   border-radius:6px;
   position:absolute;
+}
+.firework{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:yellow;
+  border-radius:50%;
+  animation:boom 1s linear infinite;
+}
+@keyframes boom{
+  from{transform:scale(0);opacity:1}
+  to{transform:scale(6);opacity:0}
+}
+.star{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  animation:shoot 1.5s linear infinite;
+}
+@keyframes shoot{
+  from{transform:translate(0,0);opacity:1}
+  to{transform:translate(-200px,200px);opacity:0}
 }
 </style>
 </head>
@@ -140,6 +164,7 @@ function go2(){
   music.play();
   show("s2");
   for(let i=0;i<12;i++)makeBalloon();
+  setInterval(makeFirework,700);
 }
 
 function makeBalloon(){
@@ -172,8 +197,8 @@ function showWishes(){
   let wishes=[
     "Happy Birthday Kumkum 🎂💖",
     "You are my favorite miracle 🌸",
-    "Your smile makes my world bright ✨",
-    "Stay happy always 😊",
+    "Your smile lights my whole world ✨",
+    "Always stay happy 😊",
     "Mahadev always protect you 🕉️🙏"
   ];
   let box=document.getElementById("wishBox");
@@ -189,7 +214,7 @@ function showWishes(){
 }
 
 document.getElementById("gift").onclick=function(){
-  for(let i=0;i<15;i++){
+  for(let i=0;i<18;i++){
     let c=document.createElement("div");
     c.className="choco";
     c.style.left=Math.random()*80+"px";
@@ -198,6 +223,25 @@ document.getElementById("gift").onclick=function(){
   }
   setTimeout(()=>show("s7"),2500);
 };
+
+function makeFirework(){
+  let f=document.createElement("div");
+  f.className="firework";
+  f.style.left=Math.random()*100+"%";
+  f.style.top=Math.random()*100+"%";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),1000);
+}
+
+function makeStar(){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1500);
+}
+setInterval(makeStar,800);
 
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
