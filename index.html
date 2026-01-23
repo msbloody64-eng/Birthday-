@@ -1,250 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For Cutiepie 💜</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-*{box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{
-  margin:0;
-  background:black;
-  color:white;
-  text-align:center;
-  overflow:hidden;
-}
-.screen{
-  position:fixed;
-  inset:0;
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-.active{display:flex;}
-.big{font-size:28px;font-weight:700;color:#c77dff;}
-.mid{font-size:18px;margin-top:10px;}
-.btn{
-  margin-top:20px;
-  padding:14px 26px;
-  background:#ff4da6;
-  color:white;
-  border:none;
-  border-radius:30px;
-  font-size:18px;
-}
-.fade{animation:fadeIn 0.8s ease;}
-@keyframes fadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
-
-img{max-width:80%;border-radius:16px;}
-
-#count{font-size:60px;font-weight:700;}
-#violet{color:#b980ff;}
-
-.cake{width:220px;transition:transform 0.6s;}
-.zoom{transform:scale(1.3);}
-
-.balloon-area{display:flex;gap:18px;margin-top:30px;}
-.balloon{
-  width:70px;height:90px;border-radius:50%;
-  position:relative;
-  cursor:pointer;
-}
-.balloon:after{
-  content:"";
-  width:2px;height:60px;
-  background:white;
-  position:absolute;
-  left:50%;top:100%;
-}
-.b1{background:#ff5f5f;}
-.b2{background:#ffd966;}
-.b3{background:#7bed9f;}
-.b4{background:#70a1ff;}
-
-.gallery{display:flex;gap:10px;}
-.gallery img{width:30%;border-radius:12px;}
-
-.letter{
-  background:white;
-  color:black;
-  padding:20px;
-  border-radius:12px;
-  max-height:70vh;
-  overflow:auto;
-}
-
-.gift{width:200px;cursor:pointer;}
-
-.firework{
-  position:absolute;
-  width:6px;height:6px;
-  background:white;
-  border-radius:50%;
-  animation:boom 1s ease-out forwards;
-}
-@keyframes boom{
-  to{
-    transform:translate(var(--x),var(--y));
-    opacity:0;
-  }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Surprise</title>
+  <style>
+    *{box-sizing:border-box;font-family:'Poppins',sans-serif}
+    body{
+      margin:0;
+      background:black;
+      color:white;
+      text-align:center;
+      overflow:hidden;
+    }
+    .screen{
+      position:absolute;
+      top:0;left:0;
+      width:100%;height:100%;
+      display:none;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      padding:20px;
+    }
+    .show{display:flex;}
+    .violet{color:#c77dff}
+    .white{color:white}
+    .btn{
+      background:#ff4da6;
+      border:none;
+      color:white;
+      padding:14px 24px;
+      border-radius:25px;
+      font-size:16px;
+      margin-top:20px;
+      cursor:pointer;
+    }
+    img{max-width:80%;border-radius:15px}
+    .big{font-size:26px;font-weight:600}
+    .medium{font-size:18px}
+    .small{font-size:14px}
+    .count{font-size:70px;font-weight:700;color:#c77dff}
+    .cake{width:220px;transition:.6s}
+    .zoom{transform:scale(1.4)}
+    .balloons{display:flex;gap:15px;margin-top:20px}
+    .balloon{
+      width:60px;height:80px;
+      border-radius:50% 50% 50% 50%;
+      cursor:pointer;
+      position:relative;
+    }
+    .balloon::after{
+      content:"";
+      position:absolute;
+      bottom:-25px;
+      left:50%;
+      width:2px;height:25px;
+      background:white;
+    }
+    .pink{background:#ff4da6}
+    .yellow{background:#ffd93d}
+    .green{background:#4cd137}
+    .blue{background:#4dabf7}
+    .photos{
+      display:flex;
+      gap:10px;
+      margin-top:20px;
+    }
+    .photos img{
+      width:90px;height:140px;
+      object-fit:cover;
+      border-radius:10px;
+    }
+    .letter{
+      background:white;
+      color:black;
+      padding:20px;
+      border-radius:15px;
+      max-width:320px;
+      max-height:70vh;
+      overflow:auto;
+      text-align:left;
+    }
+    .gift{width:160px;cursor:pointer}
+    .dog{width:160px}
+    canvas{
+      position:absolute;
+      top:0;left:0;
+      width:100%;height:100%;
+      pointer-events:none;
+    }
+  </style>
 </head>
 <body>
 
-<audio id="bgMusic" loop>
-  <source src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/main/Into_You_-_Hiten___Trending_Ringtone___%5BDownload_Link_%F0%9F%91%87%5D(256k).mp3" type="audio/mpeg">
+<audio id="music" loop>
+  <source src="Into_You_-_Hiten___Trending_Ringtone___[Download_Link_👇](256k).mp3" type="audio/mpeg">
 </audio>
 
-<!-- Screen 1: Countdown -->
-<div class="screen active" id="s1">
-  <div id="count">3</div>
-  <div id="violet" class="mid">Crafting your special moment 💜</div>
+<canvas id="fireworks"></canvas>
+
+<!-- SCREEN 1 COUNTDOWN -->
+<div id="s1" class="screen show">
+  <div class="count" id="countNum">3</div>
+  <div class="violet medium">Crafting your special moment 💜</div>
 </div>
 
-<!-- Screen 2: White Cat -->
-<div class="screen" id="s2">
+<!-- SCREEN 2 CAT -->
+<div id="s2" class="screen">
   <img src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/InShot_20260123_151810345.png">
-  <div class="big">A cutiepie born today, 17 years ago! 💜</div>
-  <div class="mid">Yes, it's you! A little surprise awaits… 🤍</div>
-  <button class="btn" onclick="go(3)">Start the surprise 🎁</button>
+  <div class="violet big" style="margin-top:15px;">A cutiepie born today, 17 years ago!</div>
+  <div class="white medium">Yes, it's you! A little surprise awaits...</div>
+  <button class="btn" onclick="next(3)">Start the surprise 🎁</button>
 </div>
 
-<!-- Screen 3: Cake -->
-<div class="screen" id="s3">
+<!-- SCREEN 3 CAKE -->
+<div id="s3" class="screen">
   <img id="cake" class="cake" src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/sweet-birthday-cake-with-candles_18591-82310.jpg">
   <button class="btn" onclick="cutCake()">Cut the cake 🎂</button>
 </div>
 
-<!-- Screen 4: Happy Birthday -->
-<div class="screen" id="s4">
-  <div class="big">Happy Birthday, Cutiepie! 💜🎉</div>
-  <button class="btn" onclick="go(5)">Next ➡️</button>
-</div>
-
-<!-- Screen 5: Balloons -->
-<div class="screen" id="s5">
-  <div class="big">Pop all balloons 🎈</div>
-  <div class="balloon-area">
-    <div class="balloon b1" onclick="pop(this,'YOU')"></div>
-    <div class="balloon b2" onclick="pop(this,'ARE')"></div>
-    <div class="balloon b3" onclick="pop(this,'A')"></div>
-    <div class="balloon b4" onclick="pop(this,'CUTIEPIE')"></div>
+<!-- SCREEN 4 BALLOONS -->
+<div id="s4" class="screen">
+  <div class="violet big">Happy Birthday, Cutiepie! 💜</div>
+  <div class="medium">Pop all balloons 🎈</div>
+  <div class="balloons">
+    <div class="balloon pink" onclick="pop(this,'You')"></div>
+    <div class="balloon yellow" onclick="pop(this,'Are')"></div>
+    <div class="balloon green" onclick="pop(this,'A')"></div>
+    <div class="balloon blue" onclick="pop(this,'Cutiepie')"></div>
   </div>
-  <div id="balloonText" class="mid"></div>
+  <div id="balloonText" class="violet medium" style="margin-top:15px;"></div>
+  <button id="balloonNext" class="btn" style="display:none" onclick="next(5)">Next ➡️</button>
 </div>
 
-<!-- Screen 6: Photos -->
-<div class="screen" id="s6">
-  <div class="big">Mr. Cutiepie 💜</div>
-  <div class="gallery">
+<!-- SCREEN 5 PHOTOS -->
+<div id="s5" class="screen">
+  <div class="violet big">Mr. Cutiepie 💜</div>
+  <div class="photos">
     <img src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/images%20(1).jpeg">
     <img src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/images%20(2).jpeg">
     <img src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/images%20(3).jpeg">
   </div>
-  <button class="btn" onclick="go(7)">My Message 💌</button>
+  <button class="btn" onclick="next(6)">My message 💌</button>
 </div>
 
-<!-- Screen 7: Letter -->
-<div class="screen" id="s7">
-  <div class="big">Tap the letter 💌</div>
-  <div class="letter">
+<!-- SCREEN 6 LETTER -->
+<div id="s6" class="screen">
+  <div class="violet big">Tap the letter ✉️</div>
+  <div class="letter" onclick="openLetter()">
     <b>Dear best friend</b><br><br>
     Happy birthday 🎂🎉🎁<br>
-    Wish you a many many happy returns of the day ❤️🥰 you are a wonderful person ❤️
-    I hope your special day is the beginning 🥰❤️ may all your dreams come true 🤞 today and always ❤️😊
-    God bless you ❤️ always happy 😊 don't be sad 😐 the birthday caption is short 😊 but....
-    Wishing you everything that brings happiness 😊 forever and always ❣️
-    I feel so lucky 🍀 to have you as my friend 😘😘❣️
+    Wish you many many happy returns of the day ❤️🥰  
+    You are a wonderful person ❤️  
+    I hope your special day is the beginning 🥰❤️  
+    May all your dreams come true 🤞 today and always ❤️😊  
+    God bless you ❤️ always happy 😊  
+    Don't be sad 😐  
+    The birthday caption is short 😊 but....  
+    Wishing you everything that brings happiness 😊 forever  
+    I feel so lucky 🍀 to have you as my friend 😘😘❣️  
     Thanks for being such a great friend 😘❤️😊
   </div>
-  <button class="btn" onclick="go(8)">Next ➡️</button>
+  <button id="letterNext" class="btn" style="display:none" onclick="next(7)">Next ➡️</button>
 </div>
 
-<!-- Screen 8: Gift -->
-<div class="screen" id="s8">
-  <div class="big">One last thing 🎁💜</div>
-  <img class="gift" onclick="openGift()" src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/InShot_20260123_154435899.png">
-  <div class="mid">Open the gift 🎀</div>
+<!-- SCREEN 7 GIFT -->
+<div id="s7" class="screen">
+  <div class="violet big">One last thing 💜</div>
+  <div class="small">Open the gift 🎁</div>
+  <img id="gift" class="gift" src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/InShot_20260123_154435899.png" onclick="openGift()">
 </div>
 
-<!-- Screen 9: Dog -->
-<div class="screen" id="s9">
-  <img src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/InShot_20260123_151756571.png">
-  <div class="mid">Lots of love for you ❣️</div>
-  <div class="big">Once again, Happy Birthday! 🎉💜</div>
-  <button class="btn" onclick="go(10)">Next ➡️</button>
+<!-- SCREEN 8 DOG -->
+<div id="s8" class="screen">
+  <img class="dog" src="https://raw.githubusercontent.com/msbloody64-eng/Birthday-/refs/heads/main/InShot_20260123_151756571.png">
+  <div class="small">Lots of love for you ❣️</div>
+  <div class="violet big">Once again, Happy Birthday! 🎉💜</div>
+  <button class="btn" onclick="next(9)">Next ➡️</button>
 </div>
 
-<!-- Screen 10: Final -->
-<div class="screen" id="s10">
-  <div class="big">If you like this presentation 💜</div>
-  <div class="mid">Type <b>abcd</b> on Snapchat 😄✨</div>
+<!-- SCREEN 9 FINAL -->
+<div id="s9" class="screen">
+  <div class="violet big">If you like this presentation</div>
+  <div class="medium">Type <b>abcd</b> on Snapchat 😄</div>
 </div>
 
 <script>
-let current=1;
-let popped=0;
-const music=document.getElementById("bgMusic");
+let current = 1;
+let popped = 0;
 
-function go(n){
-  document.getElementById("s"+current).classList.remove("active");
-  current=n;
-  document.getElementById("s"+current).classList.add("active","fade");
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'));
+  document.getElementById('s'+id).classList.add('show');
 }
 
-function startMusic(){
-  music.play().catch(()=>{});
+function next(id){
+  show(id);
+  if(id===2) playMusic();
 }
 
-let c=3;
-setInterval(()=>{
-  if(c>0){
-    document.getElementById("count").innerText=c;
-    c--;
-  }else{
-    go(2);
-    startMusic();
+function playMusic(){
+  const m=document.getElementById('music');
+  m.play().catch(()=>{});
+}
+
+let count=3;
+const countEl=document.getElementById('countNum');
+const timer=setInterval(()=>{
+  count--;
+  if(count>0) countEl.textContent=count;
+  else{
+    clearInterval(timer);
+    show(2);
   }
 },1000);
 
 function cutCake(){
-  document.getElementById("cake").classList.add("zoom");
+  document.getElementById('cake').classList.add('zoom');
   fireworks();
-  setTimeout(()=>go(4),1200);
+  setTimeout(()=>show(4),1200);
 }
 
 function pop(el,word){
-  if(el.dataset.done) return;
-  el.dataset.done=true;
+  if(el.style.visibility==="hidden") return;
   el.style.visibility="hidden";
-  document.getElementById("balloonText").innerText+=word+" ";
   popped++;
+  document.getElementById('balloonText').textContent += word+" ";
   fireworks();
   if(popped===4){
-    setTimeout(()=>go(6),1000);
+    document.getElementById('balloonNext').style.display="block";
   }
+}
+
+function openLetter(){
+  document.getElementById('letterNext').style.display="block";
 }
 
 function openGift(){
   fireworks();
-  go(9);
+  setTimeout(()=>show(8),800);
 }
 
+/* FIREWORKS */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+let particles=[];
 function fireworks(){
-  for(let i=0;i<25;i++){
-    const f=document.createElement("div");
-    f.className="firework";
-    f.style.left="50%";
-    f.style.top="50%";
-    f.style.setProperty("--x",(Math.random()*300-150)+"px");
-    f.style.setProperty("--y",(Math.random()*300-150)+"px");
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1000);
+  for(let i=0;i<40;i++){
+    particles.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height/2,
+      r:Math.random()*3+2,
+      dx:(Math.random()-0.5)*4,
+      dy:(Math.random()-0.5)*4,
+      life:60
+    });
   }
 }
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i)=>{
+    ctx.fillStyle="violet";
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.x+=p.dx;
+    p.y+=p.dy;
+    p.life--;
+    if(p.life<=0) particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
